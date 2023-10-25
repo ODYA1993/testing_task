@@ -1,0 +1,26 @@
+version: `3.8`
+
+services:
+  rest-api:
+    image: rest-api:local
+    container_name: rest-api-app
+    depends_on:
+      - db
+    networks:
+      - ps
+
+  db:
+    image: postgres:latest
+    container_name: rest-psql
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - ps
+
+networks:
+  ps:
